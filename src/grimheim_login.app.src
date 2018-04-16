@@ -5,7 +5,8 @@
   {mod, { grimheim_login_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    mnesia
    ]},
   {env,[]},
   {modules, []},

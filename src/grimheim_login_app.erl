@@ -15,6 +15,7 @@
 %%====================================================================
 
 start(_StartType, _StartArgs) ->
+    mnesia:wait_for_tables([grimheim_user], 5000),
     grimheim_login_sup:start_link().
 
 %%--------------------------------------------------------------------
