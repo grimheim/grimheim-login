@@ -14,5 +14,5 @@ after_success:
   #codecov --file _build/dev+test/cover/{eunit,ct}.coverdata
   - |
     if [[ "$TRAVIS_OTP_RELEASE" == "19.0" ]]; then
-      codecov -X gcov --file _build/dev+test/cover/aggregate/*.html
+      codecov -X gcov
     fi
