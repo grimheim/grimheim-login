@@ -9,4 +9,4 @@ install:
 script:
   - rebar3 as dev do compile, dialyzer, xref, eunit --cover, ct --cover, cover
 after_success:
-  codecov
+  codecov --file _build/dev+test/cover/{eunit,ct}.coverdata
