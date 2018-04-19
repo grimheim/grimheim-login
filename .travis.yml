@@ -4,6 +4,9 @@ otp_release:
   - 19.0
   - 20.0
 
+install:
+  pip install codecov
 script:
-  - rebar3 compile
-  - rebar3 ct
+  - rebar3 as dev do compile, dialyzer, xref, eunit --cover, ct --cover, cover
+after_success:
+  codecov
