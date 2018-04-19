@@ -8,7 +8,7 @@ install:
   pip install --user codecov
 script:
   - rebar3 as dev do dialyzer, xref
-  - rebar3 eunit --cover, ct --cover, cover
+  - rebar3 do eunit --cover, ct --cover, cover
 after_success:
   # TODO: uncomment eunit when eunit tests exist
   #codecov --file _build/dev+test/cover/{eunit,ct}.coverdata
