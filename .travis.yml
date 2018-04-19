@@ -9,4 +9,9 @@ install:
 script:
   - rebar3 as dev do compile, dialyzer, xref, eunit --cover, ct --cover, cover
 after_success:
-  codecov --file _build/dev+test/cover/{eunit,ct}.coverdata
+  # TODO: uncomment eunit when eunit tests exist
+  #codecov --file _build/dev+test/cover/{eunit,ct}.coverdata
+  - |
+    if [[ "$TRAVIS_OTP_RELEASE" == "19.0" ]]; then
+      codecov --file _build/dev+test/cover/ct.coverdata
+    fi
