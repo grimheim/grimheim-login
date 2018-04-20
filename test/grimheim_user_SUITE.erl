@@ -17,7 +17,7 @@ init_per_suite(Config) ->
 
 end_per_suite(_Config) ->
     application:stop(mnesia),
-    application:stop(grimheim_login),
+    % application:stop(grimheim_login),
     ok.
 
 create_user(_Config) ->
