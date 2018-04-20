@@ -3,7 +3,7 @@
 -include("include/grimheim_user.hrl").
 -include_lib("stdlib/include/ms_transform.hrl").
 
--export([install/1, create_user/2]).
+-export([install/1, create_user/2, user_exists/1, email_exists/1]).
 
 -spec install([node()]) -> any().
 install(Nodes) ->
@@ -38,6 +38,32 @@ create_user(Username, Email) ->
                         ok = mnesia:write(User),
                         {ok, User};
                     [Error] -> {error, Error}
+                end
+        end,
+    mnesia:activity(transaction, F).
+
+-spec user_exists(string()) -> boolean().
+user_exists(Username) ->
+    Match = ets:fun2ms(
+              fun(#grimheim_user{name=N}) when N =:= Username -> true end
+             ),
+    F = fun() ->
+                case mnesia:select(grimheim_user, Match) of
+                    [] -> false;
+                    [V] -> V
+                end
+        end,
+    mnesia:activity(transaction, F).
+
+-spec email_exists(string()) -> boolean().
+email_exists(Email) ->
+    Match = ets:fun2ms(
+              fun(#grimheim_user{email=E}) when E =:= Email -> true end
+             ),
+    F = fun() ->
+                case mnesia:select(grimheim_user, Match) of
+                    [] -> false;
+                    [V] -> V
                 end
         end,
     mnesia:activity(transaction, F).
